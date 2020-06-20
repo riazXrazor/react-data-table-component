@@ -103,6 +103,7 @@ const DataTable = memo(({
   theme,
   customStyles,
   direction,
+  allRowsPerPage,
 }) => {
   const initialState = {
     allSelected: false,
@@ -227,6 +228,8 @@ const DataTable = memo(({
   if (pagination && !paginationServer && data.length > 0 && calculatedRows.length === 0) {
     const updatedPage = getNumberOfPages(data.length, rowsPerPage);
     const recalculatedPage = recalculatePage(currentPage, updatedPage);
+    // new update
+    allRowsPerPage(calculatedRows);
 
     handleChangePage(recalculatedPage);
   }
@@ -240,6 +243,7 @@ const DataTable = memo(({
     // server - side should be handled by onChangeRowsPerPage
     if (!paginationServer) {
       handleChangePage(recalculatedPage);
+      allRowsPerPage(calculatedRows);
     }
 
     dispatch({ type: 'CHANGE_ROWS_PER_PAGE', page: recalculatedPage, rowsPerPage: newRowsPerPage });
@@ -292,6 +296,7 @@ const DataTable = memo(({
   };
 
   const showSelectAll = persistSelectedOnPageChange || selectableRowsNoSelectAll;
+
 
   return (
     <ThemeProvider theme={currentTheme}>

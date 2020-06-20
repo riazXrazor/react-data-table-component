@@ -167,6 +167,7 @@ export const propTypes = {
     'rtl',
     'auto',
   ]),
+  allRowsPerPage: PropTypes.func,
 };
 
 export const defaultProps = {
@@ -253,4 +254,5 @@ export const defaultProps = {
   theme: 'default',
   customStyles: {},
   direction: 'auto',
+  allRowsPerPage: () => null,
 };
